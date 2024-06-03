@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import config from '../config';
 import Header from './Header';
+import { useNavigate } from 'react-router-dom';
 import '../css/Admin.css';
 
 const Admin = () => {
-  const { token } = useAuth();
+  const { token, role } = useAuth();
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [genre, setGenre] = useState('rock'); // Default genre
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    if (role !== 'admin') {
+      navigate('/'); // Redirect non-admin users to home page
+    }
+  }, [role, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
