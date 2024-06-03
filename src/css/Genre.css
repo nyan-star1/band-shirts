@@ -22,20 +22,29 @@
     margin-left: 20px;
   }
   
+  .header nav span {
+    margin-right: 20px;
+  }
+  
+  .genre-page main {
+    margin: 20px;
+  }
+  
   .items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 items per row */
     gap: 20px;
-    padding: 20px;
+    justify-items: center; /* Center items horizontally */
   }
   
   .product {
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px;
-    max-width: 200px;
+    width: 100%;
+    box-sizing: border-box;
     text-align: center;
+    overflow: hidden;
   }
   
   .product img {
@@ -52,5 +61,13 @@
   .product-info p {
     font-size: 0.9em;
     color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  footer {
+    margin-top: 20px;
+    font-size: 1.1em;
   }
   

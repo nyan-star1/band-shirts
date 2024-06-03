@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import config from '../config';
 import Header from './Header';
-import '../css/Genre.css'; // Ensure you create and import a corresponding CSS file
+import '../css/Genre.css';
 
 const Genre = () => {
   const { genreId } = useParams();
