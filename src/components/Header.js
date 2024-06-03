@@ -1,40 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../css/Header.css'; 
+import '../css/Header.css';
 
 const Header = () => {
-  const { isLoggedIn, username, role, logout } = useAuth(); // Add role
+  const { isLoggedIn, username, logout, role } = useAuth();
 
   return (
     <header className="header">
-      <div className="header-logo">
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <img src="/TopMakerLogo.webp" alt="Logo" className="logo" />
-        </Link>
+      <Link to="/" className="logo">
+        <img src="/TopMakerLogo.webp" alt="Logo" />
+      </Link>
+      <div className="site-title">
+        {isLoggedIn ? `TopMaker - ${username}` : 'TopMaker'}
       </div>
-      <div className="header-title">
-        {isLoggedIn ? (
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            TopMaker - {username}
-          </Link>
-        ) : (
-          'TopMaker'
-        )}
-      </div>
-      <div className="header-auth">
+      <nav>
         {isLoggedIn ? (
           <>
-            {role === 'admin' && <Link to="/admin" className="auth-link">Make an item</Link>}
-            <button onClick={logout} className="auth-link">Log Out</button>
+            {role === 'admin' && <Link to="/admin">Make an item</Link>}
+            <button onClick={logout}>Log Out</button>
           </>
         ) : (
-          <>
-            <Link to="/signup" className="auth-link">Sign Up</Link>
-            <Link to="/login" className="auth-link">Log In</Link>
-          </>
+          <Link to="/login">Log In</Link>
         )}
-      </div>
+      </nav>
     </header>
   );
 };

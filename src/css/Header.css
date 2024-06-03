@@ -1,32 +1,51 @@
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   background-color: #333;
   color: white;
+  position: relative; /* To position the logout button correctly */
 }
 
-.header .header-logo .logo {
+.header .logo {
+  position: absolute;
+  left: 20px; /* Adjust as needed */
   height: 50px;
+  display: flex;
+  align-items: center;
 }
 
-.header .header-title {
-  font-size: 1.5em;
+.header .logo img {
+  max-height: 100%; /* Scale the image to fit the logo container */
+  max-width: 100%; /* Ensure the width doesn't exceed the container */
 }
 
-.header .header-auth a,
-.header .header-auth button {
+.header .site-title {
+  flex-grow: 1; /* Allow the site title to take up the remaining space */
+  text-align: center; /* Center the site title */
+}
+
+.header nav {
+  position: absolute;
+  right: 20px; /* Adjust as needed */
+  display: flex;
+  align-items: center;
+}
+
+.header nav a,
+.header nav button {
   color: white;
   text-decoration: none;
-  margin-left: 20px;
   background: none;
   border: none;
+  margin-left: 20px;
   cursor: pointer;
-  font: inherit;
+  font-size: 1em;
+  padding: 0;
 }
 
-.header .header-auth button:hover,
-.header .header-auth a:hover {
+.header nav button:hover,
+.header nav a:hover {
   text-decoration: underline;
 }
