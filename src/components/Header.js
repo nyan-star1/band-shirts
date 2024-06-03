@@ -10,16 +10,16 @@ const Header = () => {
     <header className="header">
       <div className="header-logo">
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <img src="/path/to/logo.png" alt="Logo" className="logo" />
+          <img src="/TopMakerLogo.webp" alt="Logo" className="logo" />
         </Link>
       </div>
       <div className="header-title">
         {isLoggedIn ? (
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            [Site Title] - {username}
+            TopMaker - {username}
           </Link>
         ) : (
-          '[Site Title]'
+          'TopMaker'
         )}
       </div>
       <div className="header-auth">
