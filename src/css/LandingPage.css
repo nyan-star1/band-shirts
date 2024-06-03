@@ -1,0 +1,74 @@
+.landing-page {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+}
+
+.header .logo {
+  height: 50px;
+}
+
+.header nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.header nav span {
+  margin-right: 20px;
+}
+
+.new-arrivals-section {
+  margin: 20px 0;
+}
+
+.new-arrivals {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.genres {
+  display: flex;
+  justify-content: center; /* Centers the genres horizontally */
+  gap: 20px; /* Adds space between each genre */
+  flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+}
+
+.genre, .product {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 200px;
+  text-align: center;
+  flex: 1; /* Makes the genres flex items */
+}
+
+.genre img, .product img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.genre h3, .product h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.product-info p {
+  font-size: 0.9em;
+  color: #666;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 1.1em;
+}

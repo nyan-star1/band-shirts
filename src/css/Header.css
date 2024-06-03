@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+}
+
+.header .header-logo .logo {
+  height: 50px;
+}
+
+.header .header-title {
+  font-size: 1.5em;
+}
+
+.header .header-auth a,
+.header .header-auth button {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.header .header-auth button:hover,
+.header .header-auth a:hover {
+  text-decoration: underline;
+}

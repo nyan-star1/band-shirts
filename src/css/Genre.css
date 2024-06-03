@@ -1,0 +1,56 @@
+.genre-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+  }
+  
+  .header .logo {
+    height: 50px;
+  }
+  
+  .header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+  }
+  
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .product {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 200px;
+    text-align: center;
+  }
+  
+  .product img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .product-info h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+  
+  .product-info p {
+    font-size: 0.9em;
+    color: #666;
+  }
+  

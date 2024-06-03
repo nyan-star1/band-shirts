@@ -1,0 +1,88 @@
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height */
+    width: 100vw; /* Full width */
+    margin: 0 auto;
+    background-color: #f9f9f9;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+  }
+  
+  .header .logo {
+    height: 50px;
+  }
+  
+  .header h1 {
+    margin: 0;
+  }
+  
+  .header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+  }
+  
+  .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Take up remaining space */
+  }
+  
+  .admin-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px; /* Limit max width */
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .admin-form input,
+  .admin-form select,
+  .admin-form textarea,
+  .admin-form button {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 95%;
+  }
+  
+  .admin-form textarea {
+    resize: vertical;
+    height: 100px;
+  }
+  
+  .admin-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .admin-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .feedback-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
