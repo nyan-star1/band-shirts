@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import '../css/AuthForm.css';
-import config from '../config'; 
+import config from '../config';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -60,10 +60,9 @@ const SignUp = () => {
         <button type="submit">Sign Up</button>
         {errorMessage && <div className="feedback-message">{errorMessage}</div>}
       </form>
-
       <div className="redirect">
         <p>Have an account?</p>
-        <Link to="/login"><button>Sign Up</button></Link>
+        <Link to="/login"><button>Login</button></Link>
       </div>
     </div>
   );
