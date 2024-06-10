@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext'; 
 import '../css/AuthForm.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import config from '../config'; 
 
 function Login() {
@@ -47,6 +47,12 @@ function Login() {
         <button type="submit">Login</button>
         {errorMessage && <div className="feedback-message">{errorMessage}</div>}
       </form>
+
+      <div className="redirect">
+        <p>Don't have an account?</p>
+        <Link to="/signup"><button>Sign Up</button></Link>
+      </div>
+
     </div>
   );
 }
