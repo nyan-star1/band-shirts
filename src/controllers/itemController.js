@@ -13,7 +13,6 @@ exports.getItemById = async (req, res) => {
   }
 };
 
-
 exports.getItemsByGenre = async (req, res) => {
   try {
     const items = await Item.find({ genre: req.params.genre });

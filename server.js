@@ -8,7 +8,13 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
+// Configure CORS using environment variables
+const corsOptions = {
+  origin: process.env.CORS_OPTIONS, // Allow requests from this origin
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -32,4 +38,5 @@ app.use('/api', protectedRoutes);
 const port = process.env.SERVER_PORT || 3001;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+  console.log(process.env.CORS_OPTIONS)
 });

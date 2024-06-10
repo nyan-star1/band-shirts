@@ -1,6 +1,6 @@
 const express = require('express');
-const { getItemById, getItemsByCategory, createItem, getNewArrivals, getItemsByGenre } = require('../controllers/itemController');
-const { verifyToken, authenticateJWT, authorizeAdmin} = require('../controllers/authController');
+const { getItemById, getItemsByGenre, createItem, getNewArrivals } = require('../controllers/itemController');
+const { authenticateJWT, authorizeAdmin } = require('../controllers/authController');
 const router = express.Router();
 
 router.get('/new-arrivals', getNewArrivals);

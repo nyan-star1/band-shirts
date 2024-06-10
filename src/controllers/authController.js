@@ -2,8 +2,10 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { setCookie, getCookie, eraseCookie } = require('./cookieController');
+const config = require('../config');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
+const COOKIE_EXPIRY_MINUTES = parseInt(process.env.REACT_APP_COOKIE_EXPIRY_MINUTES) || 60;
 
 // Register a new user
 exports.register = async (req, res) => {
@@ -37,10 +39,15 @@ exports.login = async (req, res) => {
         }
         const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
 
-        // Set token in a cookie
-        setCookie(res, 'token', token, 1); // 1 day expiration
+        // Set the token as a cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',
+            maxAge: COOKIE_EXPIRY_MINUTES * 60 * 1000 // Convert minutes to milliseconds
+        });
 
-        res.status(200).send({ message: 'Login successful', userId: user._id, role: user.role });
+        res.status(200).send({ message: 'Login successful', userId: user._id, role: user.role, token });
     } catch (error) {
         console.error('Error during user login:', error);
         res.status(500).send({ message: 'Server error during login' });

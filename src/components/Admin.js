@@ -17,24 +17,33 @@ const Admin = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
+    // Redirect non-admin users to home page
     if (role !== 'admin') {
-      navigate('/'); // Redirect non-admin users to home page
+      navigate('/');
     }
   }, [role, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!token) {
+      setErrorMessage('Token is not available. Please log in again.');
+      return;
+    }
+
     try {
+      // Send the form data to the backend
       const response = await axios.post(`${config.apiBaseUrl}/api/items`, {
         title,
         description,
         image,
         genre
       }, {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { 'Authorization': `Bearer ${token}` },
+        withCredentials: true // Ensure credentials (cookies) are included
       });
 
+      // Handle successful response
       if (response.status === 201) {
         setSuccessMessage('Item added successfully');
         setTitle('');
@@ -43,6 +52,7 @@ const Admin = () => {
         setGenre('rock');
       }
     } catch (error) {
+      // Handle error response
       setErrorMessage('Error adding item. Please try again.');
     }
   };
@@ -75,8 +85,8 @@ const Admin = () => {
             <textarea value={description} onChange={(e) => setDescription(e.target.value)} maxLength="100" required />
           </label>
           <button type="submit">Add Item</button>
-          {errorMessage && <div className="feedback-message">{errorMessage}</div>}
-          {successMessage && <div className="feedback-message">{successMessage}</div>}
+          {errorMessage && <div className="feedback-message error">{errorMessage}</div>}
+          {successMessage && <div className="feedback-message success">{successMessage}</div>}
         </form>
       </div>
     </div>

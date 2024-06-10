@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext'; 
-import '../css/AuthForm.css';
 import { useNavigate, Link } from 'react-router-dom';
 import config from '../config';
 import Cookies from 'js-cookie';
@@ -16,22 +15,29 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${config.apiBaseUrl}/api/auth/login`, { username: loginUsername, password });
+      // Send login request to the backend
+      const response = await axios.post(`${config.apiBaseUrl}/api/auth/login`, { username: loginUsername, password }, { withCredentials: true });
       if (response.status === 200) {
+        const { userId, role, token } = response.data;
         setIsLoggedIn(true);
         setUsername(loginUsername);
-        setUserId(response.data.userId);
-        setRole(response.data.role);
-        setToken(response.data.token);
+        setUserId(userId);
+        setRole(role);
+        setToken(token);
 
-        // Set cookies instead of localStorage
-        Cookies.set('userId', response.data.userId, { expires: 1 });
-        Cookies.set('role', response.data.role, { expires: 1 });
-        Cookies.set('token', response.data.token, { expires: 1 });
+        // Set cookies
+        const expiryTime = config.cookieExpiryMinutes / (24 * 60); // Convert minutes to days
+        Cookies.set('isLoggedIn', true, { expires: expiryTime, sameSite: 'Strict' });
+        Cookies.set('userId', userId, { expires: expiryTime, sameSite: 'Strict' });
+        Cookies.set('role', role, { expires: expiryTime, sameSite: 'Strict' });
+        Cookies.set('token', token, { expires: expiryTime, sameSite: 'Strict' });
 
         navigate('/');
+      } else {
+        console.error('Unexpected response:', response);
       }
     } catch (error) {
+      // Handle login error
       setErrorMessage(error.response ? error.response.data.message : 'Error logging in');
     }
   };
