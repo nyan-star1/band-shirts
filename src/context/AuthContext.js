@@ -1,13 +1,14 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import Cookies from 'js-cookie';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("isLoggedIn") === "true");
-  const [username, setUsername] = useState(() => localStorage.getItem("username") || '');
-  const [userId, setUserId] = useState(() => localStorage.getItem("userId") || '');
-  const [role, setRole] = useState(() => localStorage.getItem("role") || 'user'); // Add role
-  const [token, setToken] = useState(() => localStorage.getItem("token") || ''); // Add token
+  const [isLoggedIn, setIsLoggedIn] = useState(() => Cookies.get('isLoggedIn') === 'true');
+  const [username, setUsername] = useState(() => Cookies.get('username') || '');
+  const [userId, setUserId] = useState(() => Cookies.get('userId') || '');
+  const [role, setRole] = useState(() => Cookies.get('role') || 'user');
+  const [token, setToken] = useState(() => Cookies.get('token') || '');
 
   const logout = () => {
     setIsLoggedIn(false);
@@ -15,30 +16,30 @@ export const AuthProvider = ({ children }) => {
     setUserId('');
     setRole('user');
     setToken('');
-    localStorage.removeItem("userId");
-    localStorage.removeItem("role");
-    localStorage.removeItem("token");
-    localStorage.removeItem("isLoggedIn");
+    Cookies.remove('userId');
+    Cookies.remove('role');
+    Cookies.remove('token');
+    Cookies.remove('isLoggedIn');
   };
-  
+
   useEffect(() => {
-    localStorage.setItem("isLoggedIn", isLoggedIn);
+    Cookies.set('isLoggedIn', isLoggedIn, { expires: 1 });
   }, [isLoggedIn]);
 
   useEffect(() => {
-    localStorage.setItem("username", username);
+    Cookies.set('username', username, { expires: 1 });
   }, [username]);
 
   useEffect(() => {
-    localStorage.setItem("userId", userId);
+    Cookies.set('userId', userId, { expires: 1 });
   }, [userId]);
 
   useEffect(() => {
-    localStorage.setItem("role", role);
+    Cookies.set('role', role, { expires: 1 });
   }, [role]);
 
   useEffect(() => {
-    localStorage.setItem("token", token);
+    Cookies.set('token', token, { expires: 1 });
   }, [token]);
 
   return (

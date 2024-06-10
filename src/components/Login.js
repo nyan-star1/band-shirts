@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext'; 
-import '../css/AuthForm.css'
+import '../css/AuthForm.css';
 import { useNavigate, Link } from 'react-router-dom';
-import config from '../config'; 
+import config from '../config';
+import Cookies from 'js-cookie';
 
 function Login() {
-  const { setIsLoggedIn, setUsername, setUserId, setRole, setToken } = useAuth(); // Add setToken
+  const { setIsLoggedIn, setUsername, setUserId, setRole, setToken } = useAuth();
   const [loginUsername, setLoginUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,12 +21,15 @@ function Login() {
         setIsLoggedIn(true);
         setUsername(loginUsername);
         setUserId(response.data.userId);
-        setRole(response.data.role); // Set role from response
-        setToken(response.data.token); // Set token from response
-        localStorage.setItem('userId', response.data.userId);
-        localStorage.setItem('role', response.data.role); // Store role in local storage
-        localStorage.setItem('token', response.data.token); // Store token in local storage
-        navigate('/'); 
+        setRole(response.data.role);
+        setToken(response.data.token);
+
+        // Set cookies instead of localStorage
+        Cookies.set('userId', response.data.userId, { expires: 1 });
+        Cookies.set('role', response.data.role, { expires: 1 });
+        Cookies.set('token', response.data.token, { expires: 1 });
+
+        navigate('/');
       }
     } catch (error) {
       setErrorMessage(error.response ? error.response.data.message : 'Error logging in');
@@ -47,12 +51,10 @@ function Login() {
         <button type="submit">Login</button>
         {errorMessage && <div className="feedback-message">{errorMessage}</div>}
       </form>
-
       <div className="redirect">
         <p>Don't have an account?</p>
         <Link to="/signup"><button>Sign Up</button></Link>
       </div>
-
     </div>
   );
 }
