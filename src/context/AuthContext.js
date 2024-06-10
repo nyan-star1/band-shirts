@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import Cookies from 'js-cookie';
+import config from '../config';
 
 const AuthContext = createContext(null);
 
@@ -23,24 +24,58 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    Cookies.set('isLoggedIn', isLoggedIn, { expires: 1 });
+    const expiryTime = config.cookieExpiryMinutes / (24 * 60); // Convert minutes to days
+    Cookies.set('isLoggedIn', isLoggedIn, { expires: expiryTime, sameSite: 'Strict' });
+    if (!isLoggedIn) {
+      Cookies.remove('isLoggedIn');
+    }
   }, [isLoggedIn]);
 
   useEffect(() => {
-    Cookies.set('username', username, { expires: 1 });
+    const expiryTime = config.cookieExpiryMinutes / (24 * 60); // Convert minutes to days
+    Cookies.set('username', username, { expires: expiryTime, sameSite: 'Strict' });
+    if (!username) {
+      Cookies.remove('username');
+    }
   }, [username]);
 
   useEffect(() => {
-    Cookies.set('userId', userId, { expires: 1 });
+    const expiryTime = config.cookieExpiryMinutes / (24 * 60); // Convert minutes to days
+    Cookies.set('userId', userId, { expires: expiryTime, sameSite: 'Strict' });
+    if (!userId) {
+      Cookies.remove('userId');
+    }
   }, [userId]);
 
   useEffect(() => {
-    Cookies.set('role', role, { expires: 1 });
+    const expiryTime = config.cookieExpiryMinutes / (24 * 60); // Convert minutes to days
+    Cookies.set('role', role, { expires: expiryTime, sameSite: 'Strict' });
+    if (!role) {
+      Cookies.remove('role');
+    }
   }, [role]);
 
   useEffect(() => {
-    Cookies.set('token', token, { expires: 1 });
+    const expiryTime = config.cookieExpiryMinutes / (24 * 60); // Convert minutes to days
+    Cookies.set('token', token, { expires: expiryTime, sameSite: 'Strict' });
+    if (!token) {
+      Cookies.remove('token');
+    }
   }, [token]);
+
+  // Check for cookie expiration and alert the user
+  useEffect(() => {
+    const checkExpiry = () => {
+      const token = Cookies.get('token');
+      if (isLoggedIn && !token) {
+        alert('Session expired. Please log in again.');
+        logout();
+      }
+    };
+
+    const interval = setInterval(checkExpiry, 1000 * 60); // Check every minute
+    return () => clearInterval(interval);
+  }, [isLoggedIn]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, username, setUsername, userId, setUserId, role, setRole, token, setToken, logout }}>

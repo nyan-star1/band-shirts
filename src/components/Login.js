@@ -25,9 +25,10 @@ function Login() {
         setToken(response.data.token);
 
         // Set cookies instead of localStorage
-        Cookies.set('userId', response.data.userId, { expires: 1 });
-        Cookies.set('role', response.data.role, { expires: 1 });
-        Cookies.set('token', response.data.token, { expires: 1 });
+        const expiryTime = config.cookieExpiryMinutes / (24 * 60); // Convert minutes to days
+        Cookies.set('userId', response.data.userId, { expires: expiryTime, sameSite: 'Strict' });
+        Cookies.set('role', response.data.role, { expires: expiryTime, sameSite: 'Strict' });
+        Cookies.set('token', response.data.token, { expires: expiryTime, sameSite: 'Strict' });
 
         navigate('/');
       }
