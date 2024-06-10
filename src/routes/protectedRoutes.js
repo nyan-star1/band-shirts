@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticateJWT, authorizeAdmin } = require('../middleware/authMiddleware');
+const { authenticateJWT, authorizeAdmin } = require('../controllers/authController');
 const { createItem } = require('../controllers/itemController');
 const router = express.Router();
 
