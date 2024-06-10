@@ -72,7 +72,8 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    const interval = setInterval(checkExpiry, 1000 * 60); // Check every minute
+    // Set interval based on cookie expiry time
+    const interval = setInterval(checkExpiry, config.cookieExpiryMinutes * 60 * 1000); // Convert minutes to milliseconds
     return () => clearInterval(interval);
   }, [isLoggedIn]);
 
